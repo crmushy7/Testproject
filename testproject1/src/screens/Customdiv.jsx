@@ -53,7 +53,7 @@ const Customdiv = (props) => {
               <Button
                 className="animate-pulse bg-none"
                 label="Add To Cart"
-                onClick={() => navigate("/Detailpage")}
+                onClick={() => navigate(`/Detailpage/${data.id}`)}
                 style={{
                   backgroundColor: "green",
                   height: "60%",
