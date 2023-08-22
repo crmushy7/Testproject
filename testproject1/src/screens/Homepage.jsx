@@ -3,9 +3,13 @@ import "primeicons/primeicons.css";
 import Online from "../images/Online.jpg";
 import Customdiv from "./Customdiv";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 const Homepage = () => {
+  const navigate = useNavigate();
   const [data, setData] = useState();
+  const carts = useSelector((item) => item.name.cart);
   useEffect(() => {
     axios
       .get(`http://192.168.150.152:3000/products/retrieve-products`)
@@ -40,8 +44,20 @@ const Homepage = () => {
                 <p className="pl-1.5 hover:cursor-pointer">Account</p>
               </div>
               <div className="h-full w-3/6 flex items-center justify-end">
-                <i className="pi pi-cart-plus text-green-600 animate-bounce" />
-                <p className="hover:cursor-pointer">Cart</p>
+                <div className="flex w-2/3 h-full  flex-row">
+                  <div className="flex w-2/3 justify-center items-center  h-full">
+                    <i className="pi pi-cart-plus text-green-600 animate-bounce" />
+                    <p
+                      className="hover:cursor-pointer"
+                      onClick={() => navigate("/Cartitems")}
+                    >
+                      Cart
+                    </p>
+                  </div>
+                  <div className="flex justify-start items-start">
+                    {carts.length}
+                  </div>
+                </div>
               </div>
             </div>
           </div>

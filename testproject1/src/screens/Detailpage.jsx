@@ -4,13 +4,19 @@ import Online from "../images/Online.jpg";
 import Customdiv from "./Customdiv";
 import Smalldiv from "./Smalldiv";
 import axios from "axios";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { Button } from "primereact/button";
+import { useDispatch } from "react-redux";
+import { addToCart } from "../redux/Cart";
+import { useSelector } from "react-redux";
 
 const Detailpage = () => {
   const { id } = useParams();
+  const carts = useSelector((item) => item.name.cart);
   const [count, setCount] = useState(1);
+  const navigate = useNavigate();
   const items = [2];
+  const dispatch = useDispatch();
   const [data, setData] = useState();
   const Substraction = () => {
     if (count == 1) {
@@ -18,6 +24,10 @@ const Detailpage = () => {
     } else {
       setCount((prevcount) => prevcount - 1);
     }
+  };
+  const Afterclick = () => {
+    dispatch(addToCart(data));
+    setd;
   };
 
   useEffect(() => {
@@ -42,16 +52,33 @@ const Detailpage = () => {
           >
             <div className="h-full w-2/6  flex items-center justify-start">
               <i className="pi pi-cart-plus text-green-600 " />
-              <p>Shopcart</p>
+              <p
+                onClick={() => navigate("/Homepage")}
+                className="hover:cursor-pointer"
+              >
+                Shopcart
+              </p>
             </div>
             <div className="h-full w-1/3  flex flex-row">
               <div className="h-full w-3/6  flex items-center justify-end">
                 <i className="pi pi-user" />
                 <p className="pl-1.5 hover:cursor-pointer">Account</p>
               </div>
-              <div className="h-full w-3/6 flex items-center justify-end">
-                <i className="pi pi-cart-plus text-green-600 animate-bounce" />
-                <p className="hover:cursor-pointer">Cart</p>
+              <div className="h-full  w-3/6 flex items-center justify-end">
+                <div className="flex w-2/3 h-full  flex-row">
+                  <div className="flex w-2/3 justify-center items-center  h-full">
+                    <i className="pi pi-cart-plus text-green-600 animate-bounce" />
+                    <p
+                      className="hover:cursor-pointer"
+                      onClick={() => navigate("/Cartitems")}
+                    >
+                      Cart
+                    </p>
+                  </div>
+                  <div className="flex justify-start items-start">
+                    {carts.length}
+                  </div>
+                </div>
               </div>
             </div>
           </div>
@@ -65,7 +92,7 @@ const Detailpage = () => {
 
                   {/* <Smalldiv data={data} /> */}
                   <img
-                    src={data?.productUrl[0].img1}
+                    src={data?.productUrl[0]}
                     alt="pc"
                     className="flex w-full h-full "
                   />
@@ -120,7 +147,7 @@ const Detailpage = () => {
                 </div>
                 <div className="h-1/6 w-full  flex flex-col">
                   <div className="h-1/3 w-full flex justify-center items-center">
-                    <div className="h-full w-1/2  rounded-full border border-black flex flex-row ">
+                    {/* <div className="h-full w-1/2  rounded-full border border-black flex flex-row ">
                       <div
                         onClick={Substraction}
                         className="h-full  w-1/3 flex justify-center items-center hover:cursor-pointer "
@@ -136,7 +163,7 @@ const Detailpage = () => {
                       >
                         <span className="font-bold">+</span>
                       </div>
-                    </div>
+                    </div> */}
                   </div>
                   <div className="h-1/3 w-full flex justify-center  ">
                     <span>
@@ -146,8 +173,9 @@ const Detailpage = () => {
                   <div className="h-1/3 w-full  flex justify-center">
                     <Button
                       className="animate-pulse bg-none"
+                      id="cartbutton"
                       label="Add To Cart"
-                      onClick={() => navigate("/Detailpage")}
+                      onClick={Afterclick}
                       style={{
                         backgroundColor: "green",
                         height: "60%",

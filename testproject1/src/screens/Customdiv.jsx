@@ -25,7 +25,7 @@ const Customdiv = (props) => {
           {/* Top div with heart */}
           <div className="flex  h-6 justify-end p-input-icon-right w-full">
             <span className="flex  h-full justify-end">
-              <i className="pi pi-heart" />
+              <i className="pi pi-heart hover:cursor-pointer" />
             </span>
           </div>
           {/* Main with picture */}
@@ -37,7 +37,7 @@ const Customdiv = (props) => {
                 className="hover:cursor-pointer"
               >
                 <img
-                  src={data.productUrl[0].img1}
+                  src={data.productUrl[0]}
                   alt="pc"
                   className="flex h-full animate-none w-full"
                 />
